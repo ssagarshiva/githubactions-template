@@ -46,5 +46,5 @@ jobs:
 
             - name: build and push docker image
               run: |
-                docker build -t ${{ inputs.DOCKER_USERNAME }}/${{ inputs.DOCKER_REPO }}:${{ inputs.release_version }}-${{ github.run_number }} .
+                docker build -t ${{ inputs.DOCKER_USERNAME }}/${{ inputs.DOCKER_REPO }}:${{ inputs.release_version }}-${{ github.run_number }} -f ./Dockerfile .
                 docker push ${{ inputs.DOCKER_USERNAME }}/${{ inputs.DOCKER_REPO }}:${{ inputs.release_version }}-${{ github.run_number }}	
