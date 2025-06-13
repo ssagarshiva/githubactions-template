@@ -1,0 +1,18 @@
+{
+
+    "folders": [
+
+        {
+            "name": "nodejs-gitactions-template",
+            "path": "../..",
+
+        },
+        {
+            "name": "githubactions-template",
+            "path": "../../../nodejs"
+        }
+
+
+    ],
+    "settings":{}
+}
