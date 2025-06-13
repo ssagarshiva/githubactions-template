@@ -20,7 +20,7 @@ on:
         secrets:
                 
             DOCKER_PASSWORD:
-                description: Password for Docker Hub
+                description: 'password for Docker Hub'
                 required: true
 
 
