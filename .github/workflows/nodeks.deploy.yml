@@ -36,9 +36,9 @@ on:
                 description: 'Azure credentials for AKS deployment'
                 required: true
 
-        ACR_PASSWORD:
-            description: 'Password for Azure Container Registry'
-            required: true
+            ACR_PASSWORD:
+                description: 'Password for Azure Container Registry'
+                required: true
 
 
 
