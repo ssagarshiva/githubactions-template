@@ -73,13 +73,13 @@ jobs:
 
            - name: Replace docker image
              run: |
-               sed -e 's|<acr-host/<acr-repo>:<tag>|${{ inputs.ACR_HOST }}/${{ inputs.ACR_REPO }}:${{ inputs.release_version }}-${{ github.run_number }}|g' ./deployment/${{ inputs.environment }}/k8s.yml > ./deployment/${{ inputs.environment }}/k8s-${{ inputs.release-version}}-${{ github.run_number }}.yml
-               cat ./ deployment/${{ inputs.environment }}/k8s-${{ inputs.release_version }}-${{ github.run_number }}.yml
+               sed -e 's|<acr-host/<acr-repo>:<tag>|${{ inputs.ACR_HOST }}/${{ inputs.ACR_REPO }}:${{ inputs.release_version }}-${{ github.run_number }}|g' ./deployment/${{ inputs.environment }}/k8s.yml 
+               cat ./ deployment/${{ inputs.environment }}/k8s.yml
                ls -ltrh
 
 
            - name: Deploy to AKS
              run: |
-                kubectl apply -f ./deployment/${{ inputs.environment }}/k8s-${{ inputs.release_version }}-${{ github.run_number }}.yml --namespace ${{ inputs.AKS_CLUSTER_NAMESPACE }}
+                kubectl apply -f ./deployment/${{ inputs.environment }}/k8s.yml --namespace ${{ inputs.AKS_CLUSTER_NAMESPACE }}
               
 
