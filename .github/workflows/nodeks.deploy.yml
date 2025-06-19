@@ -1,0 +1,66 @@
+on:
+    workflow_call:
+        inputs:
+            environment:
+                required: true
+                type: string
+            AKS_CLUSTER:
+                required: true
+                type: string
+
+            AKS_RESOURCE_GROUP:
+                required: true
+                type: string
+            ACR_HOST:
+                required: true
+                type: string
+
+            ACR_USERNAME:
+                required: true
+                type: string
+            ACR_REPO:
+                required: true
+                type: string
+            AKS_CLUSTER_NAMESPACE:
+                required: true
+                type: string
+            AKS_ACR_SECRET:
+                required: true
+                type: string
+            release_version:
+                required: false
+                type: string
+
+        secrets:
+            AZURE_CREDENTIALS:
+                description: 'Azure credentials for AKS deployment'
+                required: true
+
+        ACR_PASSWORD:
+            description: 'Password for Azure Container Registry'
+            required: true
+
+
+
+jobs:
+    Deploy:
+       runs-on: ubuntu-latest
+       environment:
+        name: ${{ inputs.environment }}
+       steps:
+           - uses: actions/checkout@v4
+
+           - name: Install kubectl
+             uses: azure/setup-kubectl@v1
+             
+
+           - uses: Azure/aks-set-context@v1
+             with:
+               creds: ${{ secrets.AZURE_CREDENTIALS }}
+               cluster-name: ${{ inputs.AKS_CLUSTER }}
+               resource-group: ${{ inputs.AKS_RESOURCE_GROUP }}
+
+
+           - name: Replace docker image
+             run: |
+               sed -e '<acr-host/<acr-repo>:<tag>|${{ inputs.ACR_HOST }}/${{ inputs.ACR_REPO }}:${{ inputs.release_version }}-${{ github.run_number }}|g' ./deployment/k8s.yml > ./deployment/k8s-replaced.yml
