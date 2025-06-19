@@ -61,8 +61,8 @@ jobs:
                resource-group: ${{ inputs.AKS_RESOURCE_GROUP }}
 
 
-           - name: Azure/k8s-set-context
-             uses: Azure/aks-set-context@v1
+           - name: Azure/k8s-secret
+             uses: Azure/k8s-create-secret@v1.1
              with:
                 namespace: ${{ inputs.AKS_CLUSTER_NAMESPACE }}
                 container-registry-url: ${{ inputs.ACR_HOST }}
