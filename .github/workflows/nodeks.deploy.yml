@@ -36,7 +36,7 @@ on:
                 description: 'Azure credentials for AKS deployment'
                 required: true
 
-            ACR_PASSWORD:
+            DOCKER_PASSWORD:
                 description: 'Password for Azure Container Registry'
                 required: true
 
@@ -59,6 +59,16 @@ jobs:
                creds: ${{ secrets.AZURE_CREDENTIALS }}
                cluster-name: ${{ inputs.AKS_CLUSTER }}
                resource-group: ${{ inputs.AKS_RESOURCE_GROUP }}
+
+
+           - name: Azure/k8s-set-context
+             uses: Azure/aks-set-context@v1
+             with:
+                namespace: ${{ inputs.AKS_CLUSTER_NAMESPACE }}
+                container-registry-url: ${{ inputs.ACR_HOST }}
+                container-registry-username: ${{ inputs.ACR_USERNAME }}
+                container-registry-password: ${{ secrets.DOCKER_PASSWORD }}
+                secret-name: ${{ inputs.AKS_ACR_SECRET }}
 
 
            - name: Replace docker image
