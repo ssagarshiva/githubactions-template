@@ -82,6 +82,6 @@ jobs:
            - name: Deploy to AKS
              run: |
                 kubectl config set-context --current --namespace=${{ inputs.AKS_CLUSTER_NAMESPACE }}
-                kubectl apply -f ./deployment/${{ inputs.environment }}/k8s.yml 
+                kubectl apply -f ./deployment/${{ inputs.environment }}/k8s.yml --namespace=${{ inputs.AKS_CLUSTER_NAMESPACE }}
               
 
