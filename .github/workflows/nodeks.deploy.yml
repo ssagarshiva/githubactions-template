@@ -73,7 +73,7 @@ jobs:
 
            - name: Replace docker image
              run: |
-               sed -e 's|<acr-host/<acr-repo>:<tag>|${{ inputs.ACR_HOST }}/${{ inputs.ACR_REPO }}:${{ inputs.release_version }}-${{ github.run_number }}|g' ./deployment/${{ inputs.environment }}/k8s.yml 
+               sed -e 's|<acr-host/<acr-repo>:<tag>|${{ inputs.ACR_HOST }}/${{ inputs.ACR_REPO }}:${{ inputs.release_version }}-${{ github.run_number }}|g' ./deployment/${{ inputs.environment }}/k8s.yml > ./deployment/${{ inputs.environment }}/k8s.yml
                cat ./ deployment/${{ inputs.environment }}/k8s.yml
                ls -ltrh
 
